@@ -38,6 +38,15 @@ app.post('/login', (req, res) => {
     res.json({ message: 'Login successful', code: user.code });
 });
 
+app.post('/vr-login', (req, res) => {
+    const { email, code } = req.body;
+    const user = users[email];
+    if (!user || user.code !== code) {
+        return res.status(401).json({ message: 'Invalid code or user not found' });
+    }
+    res.json({ message: 'VR Login successful' });
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 TFG WEB is running at http://localhost:${PORT}`);
 });
