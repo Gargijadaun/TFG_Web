@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TFG WEB - Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 12px;
+            width: 250px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/tfg-logo.png" alt="TFG WEB Logo" class="logo">
+    <div class="container">
+        <h2>Register</h2>
+        <input id="name" placeholder="Name"><br>
+        <input id="email" placeholder="Email"><br>
+        <input id="phone" placeholder="Phone Number"><br>
+        <input id="password" type="password" placeholder="Password"><br>
+        <button onclick="register()">Register</button>
+    </div>
+
+    <script>
+    async function register() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const password = document.getElementById("password").value;
+
+        const res = await fetch("/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, phone, password })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+            alert("Registered successfully! Please login.");
+            window.location.href = "/login.html";
+        } else {
+            alert(data.message || "Error registering.");
+        }
+    }
+    </script>
+</body>
+</html>

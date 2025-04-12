@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFG WEB - Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            width: 250px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/tfg-logo.png" alt="TFG WEB Logo" class="logo">
+    <div class="container">
+        <h2>TFG WEB - Login</h2>
+        <input id="email" placeholder="Email" type="email" required><br>
+        <input id="password" type="password" placeholder="Password" required><br>
+        <button onclick="login()">Login</button>
+        <div class="error-message" id="error-message"></div>
+    </div>
+
+    <script>
+        async function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                document.getElementById("error-message").innerText = "Please fill in both fields.";
+                return;
+            }
+
+            const res = await fetch("https://your-app.onrender.com/login", { // Replace with your live URL
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem("code", data.code); // Save the code in localStorage
+                window.location.href = "/welcome.html"; // Redirect to the welcome page
+            } else {
+                document.getElementById("error-message").innerText = data.message || "Login failed.";
+            }
+        }
+    </script>
+</body>
+</html>

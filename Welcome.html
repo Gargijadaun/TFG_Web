@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TFG WEB - Welcome</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/tfg-logo.png" alt="TFG WEB Logo" class="logo">
+    <div class="container">
+        <h2>Welcome to TFG WEB</h2>
+        <p>Your Login Code is:</p>
+        <p id="userCode"></p>
+    </div>
+
+    <script>
+    const code = localStorage.getItem("code");
+    if (!code) {
+        window.location.href = "/login.html";
+    } else {
+        document.getElementById("userCode").innerText = code;
+    }
+    </script>
+</body>
+</html>
