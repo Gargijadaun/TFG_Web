@@ -94,7 +94,7 @@
 
             if (res.ok) {
                 localStorage.setItem("code", data.code); // Save the code in localStorage
-                window.location.href = "/welcome.html"; // Redirect to the welcome page
+                window.location.href = "/Welcome.html"; // Redirect to the welcome page
             } else {
                 document.getElementById("error-message").innerText = data.message || "Login failed.";
             }
